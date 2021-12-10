@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+
+html,
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overscroll-behavior: none;
+  margin: 0px;
+  padding: 0px;
+  font-size: 13px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+label {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+button {
+  font-size: 13px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 4px 8px;
+}
+
+button:hover {
+  background-color: rgba(144, 144, 144, 0.2);
+}
+
+.tlnu-app {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100vw;
+  height: 100vh;
+}
+
+.tlnu-toolbar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  color: black;
+  z-index: 100000;
+  user-select: none;
+  background: white;
+  border-bottom: 1px solid black;
+  font-size: inherit;
+}
+
+.tlnu-debug {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  color: black;
+  z-index: 100000;
+  user-select: none;
+  background: white;
+  border-top: 1px solid black;
+}

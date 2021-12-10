@@ -1,0 +1,20 @@
+{
+  "createComment": {
+    "scope": "typescript,typescriptreact",
+    "prefix": "ccc",
+    "body": [
+      "/**",
+      " * ${1:description}",
+      " *",
+      " * ```tsx",
+      " * ${2:example}",
+      " * ```",
+      " *",
+      " * @returns ${3:returns}",
+      " *",
+      " * @public",
+      " */"
+    ],
+    "description": "comment"
+  }
+}
