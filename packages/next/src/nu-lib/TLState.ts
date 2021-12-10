@@ -446,13 +446,13 @@ export abstract class TLState<
 
   children = new Map<string, TLState<S, R, any>>([])
 
-  registerStates = (...stateClasses: TLStateClass<S, R, this>[]): void => {
+  registerStates = (...stateClasses: TLStateClass<S, R, any>[]): void => {
     stateClasses.forEach((StateClass) =>
       this.children.set(StateClass.id, new StateClass(this, this._root))
     )
   }
 
-  deregisterStates = (...states: TLStateClass<S, R, this>[]): void => {
+  deregisterStates = (...states: TLStateClass<S, R, any>[]): void => {
     states.forEach((StateClass) => {
       this.children.get(StateClass.id)?.dispose()
       this.children.delete(StateClass.id)

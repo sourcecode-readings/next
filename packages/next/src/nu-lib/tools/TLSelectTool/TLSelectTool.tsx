@@ -3,23 +3,20 @@ import { TLTool } from '../../TLTool'
 import {
   IdleState,
   BrushingState,
+  PointingCanvasState,
   PointingShapeState,
   PointingShapeBehindBoundsState,
-  PointingCanvasState,
   PointingBoundsBackgroundState,
-  TranslatingShapesState,
   PointingSelectedShapeState,
   PointingResizeHandleState,
-  ResizingShapesState,
-  RotatingShapesState,
   PointingRotateHandleState,
+  TranslatingState,
+  ResizingState,
+  RotatingState,
   PinchingState,
 } from './states'
 
-export class TLSelectTool<S extends TLShape, R extends TLApp<any> = TLApp<any>> extends TLTool<
-  S,
-  R
-> {
+export class TLSelectTool<S extends TLShape, R extends TLApp<S> = TLApp<S>> extends TLTool<S, R> {
   static id = 'select'
 
   static initial = 'idle'
@@ -34,12 +31,12 @@ export class TLSelectTool<S extends TLShape, R extends TLApp<any> = TLApp<any>> 
     PointingShapeBehindBoundsState,
     PointingSelectedShapeState,
     PointingBoundsBackgroundState,
-    TranslatingShapesState,
     PointingResizeHandleState,
-    ResizingShapesState,
     PointingRotateHandleState,
-    RotatingShapesState,
-    RotatingShapesState,
+    TranslatingState,
+    ResizingState,
+    RotatingState,
+    RotatingState,
     PinchingState,
   ]
 }

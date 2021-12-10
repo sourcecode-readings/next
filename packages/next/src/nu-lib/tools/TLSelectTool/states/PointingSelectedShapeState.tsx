@@ -24,7 +24,7 @@ export class PointingSelectedShapeState<
   onPointerMove: TLPointerHandler = () => {
     const { currentPoint, originPoint } = this.app.inputs
     if (Vec.dist(currentPoint, originPoint) > 5) {
-      this.tool.transition('translatingShapes')
+      this.tool.transition('translating')
     }
   }
 

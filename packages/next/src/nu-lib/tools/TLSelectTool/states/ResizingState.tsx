@@ -10,12 +10,12 @@ import {
 } from '~types'
 import { BoundsUtils } from '~utils'
 
-export class ResizingShapesState<
+export class ResizingState<
   S extends TLShape,
   R extends TLApp<S>,
   P extends TLSelectTool<S, R>
 > extends TLToolState<S, R, P> {
-  static id = 'resizingShapes'
+  static id = 'resizing'
 
   isSingle = false
   handle: TLBoundsCorner | TLBoundsEdge = TLBoundsCorner.BottomRight

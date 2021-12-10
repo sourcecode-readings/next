@@ -3,12 +3,12 @@ import { TLApp, TLSelectTool, TLShape, TLToolState } from '~nu-lib'
 import type { TLKeyboardHandler, TLPointerHandler, TLWheelHandler } from '~types'
 import { uniqueId } from '~utils'
 
-export class TranslatingShapesState<
+export class TranslatingState<
   S extends TLShape,
   R extends TLApp<S>,
   P extends TLSelectTool<S, R>
 > extends TLToolState<S, R, P> {
-  static id = 'translatingShapes'
+  static id = 'translating'
 
   private isCloning = false
   private didClone = false
@@ -19,7 +19,6 @@ export class TranslatingShapesState<
 
   private moveSelectedShapesToPointer() {
     const {
-      history,
       selectedShapes,
       inputs: { shiftKey, originPoint, currentPoint },
     } = this.app

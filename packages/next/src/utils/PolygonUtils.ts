@@ -72,7 +72,7 @@ export class PolygonUtils {
 
   static getStarVertices = (center: number[], size: number[], sides: number, ratio = 1) => {
     const outer = Vec.div(size, 2)
-    const inner = Vec.mul(outer, ratio)
+    const inner = Vec.mul(outer, ratio / 2)
     const step = PI2 / sides / 2
     return Array.from(Array(sides * 2)).map((_, i) => {
       const theta = -TAU + i * step

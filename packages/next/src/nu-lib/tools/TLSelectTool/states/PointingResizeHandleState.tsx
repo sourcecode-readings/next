@@ -28,7 +28,7 @@ export class PointingResizeHandleState<
   onPointerMove: TLPointerHandler = () => {
     const { currentPoint, originPoint } = this.app.inputs
     if (Vec.dist(currentPoint, originPoint) > 5) {
-      this.tool.transition('resizingShapes', { handle: this.pointedHandle })
+      this.tool.transition('resizing', { handle: this.pointedHandle })
     }
   }
 

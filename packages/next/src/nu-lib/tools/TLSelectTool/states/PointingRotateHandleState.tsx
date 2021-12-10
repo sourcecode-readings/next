@@ -16,7 +16,7 @@ export class PointingRotateHandleState<
   onPointerMove: TLPointerHandler = () => {
     const { currentPoint, originPoint } = this.app.inputs
     if (Vec.dist(currentPoint, originPoint) > 5) {
-      this.tool.transition('rotatingShapes')
+      this.tool.transition('rotating')
     }
   }
 

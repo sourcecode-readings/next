@@ -77,32 +77,32 @@ export class TLStarShape<P extends TLStarShapeProps = any> extends TLBoxShape<P>
       size: [w, h],
     } = this
 
-    if (points === 3) {
-      const A = [w / 2, padding / 2]
-      const B = [w - padding, h - padding]
-      const C = [padding / 2, h - padding]
+    // if (points === 3) {
+    //   const A = [w / 2, padding / 2]
+    //   const B = [w - padding, h - padding]
+    //   const C = [padding / 2, h - padding]
 
-      const centroid = PolygonUtils.getPolygonCentroid([A, B, C])
+    //   const centroid = PolygonUtils.getPolygonCentroid([A, B, C])
 
-      const AB = Vec.med(A, B)
-      const BC = Vec.med(B, C)
-      const CA = Vec.med(C, A)
+    //   const AB = Vec.med(A, B)
+    //   const BC = Vec.med(B, C)
+    //   const CA = Vec.med(C, A)
 
-      const r = 1 - ratio
+    //   const r = 1 - ratio
 
-      const dAB = Vec.dist(AB, centroid) * r
-      const dBC = Vec.dist(BC, centroid) * r
-      const dCA = Vec.dist(CA, centroid) * r
+    //   const dAB = Vec.dist(AB, centroid) * r
+    //   const dBC = Vec.dist(BC, centroid) * r
+    //   const dCA = Vec.dist(CA, centroid) * r
 
-      return [
-        A,
-        dAB ? Vec.nudge(AB, centroid, dAB) : AB,
-        B,
-        dBC ? Vec.nudge(BC, centroid, dBC) : BC,
-        C,
-        dCA ? Vec.nudge(CA, centroid, dCA) : CA,
-      ]
-    }
+    //   return [
+    //     A,
+    //     dAB ? Vec.nudge(AB, centroid, dAB) : AB,
+    //     B,
+    //     dBC ? Vec.nudge(BC, centroid, dBC) : BC,
+    //     C,
+    //     dCA ? Vec.nudge(CA, centroid, dCA) : CA,
+    //   ]
+    // }
 
     return PolygonUtils.getStarVertices(
       Vec.div([w, h], 2),

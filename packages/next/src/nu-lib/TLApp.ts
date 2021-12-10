@@ -126,7 +126,7 @@ export class TLApp<S extends TLShape = TLShape> extends TLRootState<S> {
   @computed get showBoundsRotation() {
     const stateId = this.selectedTool.currentState.id
     return (
-      (this.selectedShapes.length > 0 && stateId === 'rotatingShapes') ||
+      (this.selectedShapes.length > 0 && stateId === 'rotating') ||
       stateId === 'pointingRotateHandle'
     )
   }

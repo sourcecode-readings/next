@@ -3,12 +3,12 @@ import { TLApp, TLSelectTool, TLShape, TLToolState } from '~nu-lib'
 import type { TLBounds, TLKeyboardHandler, TLPointerHandler, TLWheelHandler } from '~types'
 import { BoundsUtils, GeomUtils } from '~utils'
 
-export class RotatingShapesState<
+export class RotatingState<
   S extends TLShape,
   R extends TLApp<S>,
   P extends TLSelectTool<S, R>
 > extends TLToolState<S, R, P> {
-  static id = 'rotatingShapes'
+  static id = 'rotating'
 
   snapshot: Record<
     string,

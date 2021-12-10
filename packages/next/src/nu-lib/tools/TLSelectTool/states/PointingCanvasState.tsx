@@ -1,6 +1,6 @@
 import { Vec } from '@tldraw/vec'
 import { TLApp, TLSelectTool, TLShape, TLToolState } from '~nu-lib'
-import type { TLBinding, TLPinchHandler, TLPointerHandler, TLWheelHandler } from '~types'
+import type { TLPinchHandler, TLPointerHandler, TLWheelHandler } from '~types'
 
 export class PointingCanvasState<
   S extends TLShape,
@@ -26,7 +26,9 @@ export class PointingCanvasState<
   }
 
   onPointerUp: TLPointerHandler = () => {
-    this.app.deselectAll()
+    if (!this.app.inputs.shiftKey) {
+      this.app.deselectAll()
+    }
     this.tool.transition('idle')
   }
 
