@@ -1,9 +1,10 @@
 import { Vec } from '@tldraw/vec'
-import type { TLNuBounds } from '~types'
+import type { TLBounds } from '~types'
 
 export class PointUtils {
   /**
    * Get whether a point is inside of a circle.
+   *
    * @param A
    * @param b
    * @returns
@@ -14,6 +15,7 @@ export class PointUtils {
 
   /**
    * Get whether a point is inside of an ellipse.
+   *
    * @param point
    * @param center
    * @param rx
@@ -34,6 +36,7 @@ export class PointUtils {
 
   /**
    * Get whether a point is inside of a rectangle.
+   *
    * @param point
    * @param size
    */
@@ -65,16 +68,18 @@ export class PointUtils {
 
   /**
    * Get whether a point is inside of a bounds.
+   *
    * @param A The point to check.
    * @param b The bounds to check.
    * @returns
    */
-  static pointInBounds(A: number[], b: TLNuBounds): boolean {
+  static pointInBounds(A: number[], b: TLBounds): boolean {
     return !(A[0] < b.minX || A[0] > b.maxX || A[1] < b.minY || A[1] > b.maxY)
   }
 
   /**
    * Hit test a point and a polyline using a minimum distance.
+   *
    * @param A The point to check.
    * @param points The points that make up the polyline.
    * @param distance (optional) The mininum distance that qualifies a hit.
@@ -91,6 +96,7 @@ export class PointUtils {
 
   /**
    * Simplify a line (using Ramer-Douglas-Peucker algorithm).
+   *
    * @param points An array of points as [x, y, ...][]
    * @param tolerance The minimum line distance (also called epsilon).
    * @returns Simplified array as [x, y, ...][]

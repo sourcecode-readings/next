@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TLNuBoundsCorner, TLNuBoundsEdge } from '~types'
+import { TLBoundsCorner, TLBoundsEdge } from '~types'
 
 export const PI = Math.PI
 export const TAU = PI / 2
@@ -15,12 +15,12 @@ export const CURSORS = {
   canvas: 'default',
   grab: 'grab',
   grabbing: 'grabbing',
-  [TLNuBoundsCorner.TopLeft]: 'resize-nwse',
-  [TLNuBoundsCorner.TopRight]: 'resize-nesw',
-  [TLNuBoundsCorner.BottomRight]: 'resize-nwse',
-  [TLNuBoundsCorner.BottomLeft]: 'resize-nesw',
-  [TLNuBoundsEdge.Top]: 'resize-ns',
-  [TLNuBoundsEdge.Right]: 'resize-ew',
-  [TLNuBoundsEdge.Bottom]: 'resize-ns',
-  [TLNuBoundsEdge.Left]: 'resize-ew',
+  [TLBoundsCorner.TopLeft]: 'resize-nwse',
+  [TLBoundsCorner.TopRight]: 'resize-nesw',
+  [TLBoundsCorner.BottomRight]: 'resize-nwse',
+  [TLBoundsCorner.BottomLeft]: 'resize-nesw',
+  [TLBoundsEdge.Top]: 'resize-ns',
+  [TLBoundsEdge.Right]: 'resize-ew',
+  [TLBoundsEdge.Bottom]: 'resize-ns',
+  [TLBoundsEdge.Left]: 'resize-ew',
 }

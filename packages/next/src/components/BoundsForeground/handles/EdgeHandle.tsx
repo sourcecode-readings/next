@@ -1,14 +1,13 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useContext } from '~hooks/useContext'
-import { TLNuBoundsEdge, TLNuTargetType } from '~types'
+import { TLBoundsEdge } from '~types'
 import { useBoundsEvents } from '~hooks/useBoundsEvents'
 
 const edgeClassnames = {
-  [TLNuBoundsEdge.Top]: 'nu-cursor-ns',
-  [TLNuBoundsEdge.Right]: 'nu-cursor-ew',
-  [TLNuBoundsEdge.Bottom]: 'nu-cursor-ns',
-  [TLNuBoundsEdge.Left]: 'nu-cursor-ew',
+  [TLBoundsEdge.Top]: 'nu-cursor-ns',
+  [TLBoundsEdge.Right]: 'nu-cursor-ew',
+  [TLBoundsEdge.Bottom]: 'nu-cursor-ns',
+  [TLBoundsEdge.Left]: 'nu-cursor-ew',
 }
 
 interface EdgeHandleProps {
@@ -17,7 +16,7 @@ interface EdgeHandleProps {
   width: number
   height: number
   targetSize: number
-  edge: TLNuBoundsEdge
+  edge: TLBoundsEdge
   isHidden?: boolean
 }
 

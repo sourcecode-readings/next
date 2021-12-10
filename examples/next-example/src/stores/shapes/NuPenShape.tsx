@@ -5,20 +5,20 @@ import {
   assignOwnProps,
   SVGContainer,
   SvgPathUtils,
-  TLNuComponentProps,
-  TLNuDrawShape,
-  TLNuDrawShapeProps,
-  TLNuIndicatorProps,
-  TLNuShapeProps,
+  TLComponentProps,
+  TLDrawShape,
+  TLDrawShapeProps,
+  TLIndicatorProps,
+  TLShapeProps,
 } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
 import { observable, computed, makeObservable } from 'mobx'
 import type { NuStyleProps } from './NuStyleProps'
 
-export interface NuPenShapeProps extends TLNuDrawShapeProps, NuStyleProps {}
+export interface NuPenShapeProps extends TLDrawShapeProps, NuStyleProps {}
 
-export class NuPenShape extends TLNuDrawShape<NuPenShapeProps> {
-  constructor(props = {} as TLNuShapeProps & Partial<NuPenShapeProps>) {
+export class NuPenShape extends TLDrawShape<NuPenShapeProps> {
+  constructor(props = {} as TLShapeProps & Partial<NuPenShapeProps>) {
     super(props)
     assignOwnProps(this, props)
     makeObservable(this)
@@ -42,7 +42,7 @@ export class NuPenShape extends TLNuDrawShape<NuPenShapeProps> {
     return SvgPathUtils.getCurvedPathForPolygon(stroke)
   }
 
-  Component = observer(({ events }: TLNuComponentProps) => {
+  Component = observer(({ events }: TLComponentProps) => {
     const { points, pointsPath, stroke, strokeWidth } = this
 
     return (
@@ -58,7 +58,7 @@ export class NuPenShape extends TLNuDrawShape<NuPenShapeProps> {
     )
   })
 
-  Indicator = observer((props: TLNuIndicatorProps) => {
+  Indicator = observer((props: TLIndicatorProps) => {
     const { pointsPath } = this
     return <path d={pointsPath} />
   })

@@ -1,11 +1,11 @@
 import * as React from 'react'
-import type { TLNuViewport } from '~nu-lib'
-import type { TLNuBounds } from '~types'
+import type { TLViewport } from '~nu-lib'
+import type { TLBounds } from '~types'
 
 export function useResizeObserver<T extends Element>(
   ref: React.RefObject<T>,
-  viewport: TLNuViewport,
-  onBoundsChange?: (bounds: TLNuBounds) => void
+  viewport: TLViewport,
+  onBoundsChange?: (bounds: TLBounds) => void
 ) {
   const rIsMounted = React.useRef(false)
 
@@ -16,7 +16,7 @@ export function useResizeObserver<T extends Element>(
       const rect = ref.current?.getBoundingClientRect()
 
       if (rect) {
-        const bounds: TLNuBounds = {
+        const bounds: TLBounds = {
           minX: rect.left,
           maxX: rect.left + rect.width,
           minY: rect.top,

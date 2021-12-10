@@ -1,17 +1,17 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import { TLNuBoundsComponentProps, TLNuBoundsCorner, TLNuBoundsEdge } from '~types'
+import { TLBoundsComponentProps, TLBoundsCorner, TLBoundsEdge } from '~types'
 import { EdgeHandle, CornerHandle, RotateHandle } from './handles'
 import { SVGContainer } from '../SVGContainer'
 import { useBoundsEvents } from '~hooks'
-import type { TLNuShape } from '~nu-lib'
+import type { TLShape } from '~nu-lib'
 
-export const BoundsForeground = observer(function BoundsForeground<S extends TLNuShape>({
+export const BoundsForeground = observer(function BoundsForeground<S extends TLShape>({
   bounds,
   zoom,
   showResizeHandles,
   showRotateHandle,
-}: TLNuBoundsComponentProps<S>) {
+}: TLBoundsComponentProps<S>) {
   const { width, height } = bounds
 
   const size = 8 / zoom
@@ -36,7 +36,7 @@ export const BoundsForeground = observer(function BoundsForeground<S extends TLN
             width={width - targetSize * 4}
             height={0}
             targetSize={targetSize}
-            edge={TLNuBoundsEdge.Top}
+            edge={TLBoundsEdge.Top}
           />
           <EdgeHandle
             x={width}
@@ -44,7 +44,7 @@ export const BoundsForeground = observer(function BoundsForeground<S extends TLN
             width={0}
             height={height - targetSize * 4}
             targetSize={targetSize}
-            edge={TLNuBoundsEdge.Right}
+            edge={TLBoundsEdge.Right}
           />
           <EdgeHandle
             x={targetSize * 2}
@@ -52,7 +52,7 @@ export const BoundsForeground = observer(function BoundsForeground<S extends TLN
             width={width - targetSize * 4}
             height={0}
             targetSize={targetSize}
-            edge={TLNuBoundsEdge.Bottom}
+            edge={TLBoundsEdge.Bottom}
           />
           <EdgeHandle
             x={0}
@@ -60,35 +60,35 @@ export const BoundsForeground = observer(function BoundsForeground<S extends TLN
             width={0}
             height={height - targetSize * 4}
             targetSize={targetSize}
-            edge={TLNuBoundsEdge.Left}
+            edge={TLBoundsEdge.Left}
           />
           <CornerHandle
             cx={0}
             cy={0}
             size={size}
             targetSize={targetSize}
-            corner={TLNuBoundsCorner.TopLeft}
+            corner={TLBoundsCorner.TopLeft}
           />
           <CornerHandle
             cx={width}
             cy={0}
             size={size}
             targetSize={targetSize}
-            corner={TLNuBoundsCorner.TopRight}
+            corner={TLBoundsCorner.TopRight}
           />
           <CornerHandle
             cx={width}
             cy={height}
             size={size}
             targetSize={targetSize}
-            corner={TLNuBoundsCorner.BottomRight}
+            corner={TLBoundsCorner.BottomRight}
           />
           <CornerHandle
             cx={0}
             cy={height}
             size={size}
             targetSize={targetSize}
-            corner={TLNuBoundsCorner.BottomLeft}
+            corner={TLBoundsCorner.BottomLeft}
           />
         </>
       )}

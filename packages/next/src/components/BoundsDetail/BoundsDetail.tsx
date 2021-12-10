@@ -3,14 +3,14 @@ import { observer } from 'mobx-react-lite'
 import { HTMLContainer } from '~components'
 import { TAU } from '~constants'
 import { GeomUtils } from '~utils'
-import type { TLNuBoundsDetailProps } from '~types'
-import type { TLNuShape } from '~nu-lib'
+import type { TLBoundsDetailProps } from '~types'
+import type { TLShape } from '~nu-lib'
 
-export const BoundsDetail = observer(function BoundsDetail<S extends TLNuShape>({
+export const BoundsDetail = observer(function BoundsDetail<S extends TLShape>({
   bounds,
   detail,
   scaledBounds,
-}: TLNuBoundsDetailProps<S>) {
+}: TLBoundsDetailProps<S>) {
   const { rotation = 0 } = bounds
   const isFlipped = Math.abs(rotation) > TAU
 

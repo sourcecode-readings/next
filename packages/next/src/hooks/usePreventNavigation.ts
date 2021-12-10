@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as React from 'react'
-import { useContext } from '~hooks'
+import { useRendererContext } from '~hooks'
 
 export function usePreventNavigation(rCanvas: React.RefObject<HTMLDivElement>): void {
-  const context = useContext()
+  const context = useRendererContext()
   const {
     viewport: { bounds },
   } = context

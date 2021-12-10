@@ -1,30 +1,30 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useContext } from '~hooks'
+import { useRendererContext } from '~hooks'
 import { BoundsUtils } from '~utils'
-import type { TLNuBounds } from '~types'
-import type { TLNuShape } from '~nu-lib'
+import type { TLBounds } from '~types'
+import type { TLShape } from '~nu-lib'
 import { useCounterScaledPosition } from '~hooks'
 
-export interface TLNuBoundsDetailContainerProps<S extends TLNuShape> {
+export interface TLBoundsDetailContainerProps<S extends TLShape> {
   hidden: boolean
   detail: 'size' | 'rotation'
-  bounds: TLNuBounds
+  bounds: TLBounds
   shapes: S[]
 }
 
-export const BoundsDetailContainer = observer(function BoundsDetail<S extends TLNuShape>({
+export const BoundsDetailContainer = observer(function BoundsDetail<S extends TLShape>({
   bounds,
   hidden,
   shapes,
   detail = 'size',
-}: TLNuBoundsDetailContainerProps<S>) {
+}: TLBoundsDetailContainerProps<S>) {
   const {
     components: { BoundsDetail },
     viewport: {
       camera: { zoom },
     },
-  } = useContext()
+  } = useRendererContext()
 
   const rBounds = React.useRef<HTMLDivElement>(null)
   const scaledBounds = BoundsUtils.multiplyBounds(bounds, zoom)

@@ -1,50 +1,50 @@
 import * as React from 'react'
-import { useContext } from '~hooks'
-import type { TLNuShape } from '~nu-lib'
-import { TLNuPointerEventHandler, TLNuTargetType } from '~types'
+import { useRendererContext } from '~hooks'
+import type { TLShape } from '~nu-lib'
+import { TLPointerEventHandler, TLTargetType } from '~types'
 
-export function useShapeEvents(shape: TLNuShape) {
-  const { inputs, callbacks } = useContext()
+export function useShapeEvents(shape: TLShape) {
+  const { inputs, callbacks } = useRendererContext()
 
   const events = React.useMemo(() => {
-    const onPointerMove: TLNuPointerEventHandler = (e) => {
+    const onPointerMove: TLPointerEventHandler = (e) => {
       const { order = 0 } = e
-      callbacks.onPointerMove?.({ type: TLNuTargetType.Shape, target: shape, order }, e)
+      callbacks.onPointerMove?.({ type: TLTargetType.Shape, target: shape, order }, e)
       e.order = order + 1
     }
 
-    const onPointerDown: TLNuPointerEventHandler = (e) => {
+    const onPointerDown: TLPointerEventHandler = (e) => {
       const { order = 0 } = e
       if (e.order === 0) e.currentTarget.setPointerCapture(e.pointerId)
-      callbacks.onPointerDown?.({ type: TLNuTargetType.Shape, target: shape, order }, e)
+      callbacks.onPointerDown?.({ type: TLTargetType.Shape, target: shape, order }, e)
       e.order = order + 1
     }
 
-    const onPointerUp: TLNuPointerEventHandler = (e) => {
+    const onPointerUp: TLPointerEventHandler = (e) => {
       const { order = 0 } = e
       if (e.order === 0) e.currentTarget.releasePointerCapture(e.pointerId)
-      callbacks.onPointerUp?.({ type: TLNuTargetType.Shape, target: shape, order }, e)
+      callbacks.onPointerUp?.({ type: TLTargetType.Shape, target: shape, order }, e)
       e.order = order + 1
     }
 
-    const onPointerEnter: TLNuPointerEventHandler = (e) => {
+    const onPointerEnter: TLPointerEventHandler = (e) => {
       const { order = 0 } = e
-      callbacks.onPointerEnter?.({ type: TLNuTargetType.Shape, target: shape, order }, e)
+      callbacks.onPointerEnter?.({ type: TLTargetType.Shape, target: shape, order }, e)
       e.order = order + 1
     }
 
-    const onPointerLeave: TLNuPointerEventHandler = (e) => {
+    const onPointerLeave: TLPointerEventHandler = (e) => {
       const { order = 0 } = e
-      callbacks.onPointerLeave?.({ type: TLNuTargetType.Shape, target: shape, order }, e)
+      callbacks.onPointerLeave?.({ type: TLTargetType.Shape, target: shape, order }, e)
       e.order = order + 1
     }
 
     const onKeyDown: React.KeyboardEventHandler = (e) => {
-      callbacks.onKeyDown?.({ type: TLNuTargetType.Shape, target: shape, order: -1 }, e)
+      callbacks.onKeyDown?.({ type: TLTargetType.Shape, target: shape, order: -1 }, e)
     }
 
     const onKeyUp: React.KeyboardEventHandler = (e) => {
-      callbacks.onKeyUp?.({ type: TLNuTargetType.Shape, target: shape, order: -1 }, e)
+      callbacks.onKeyUp?.({ type: TLTargetType.Shape, target: shape, order: -1 }, e)
     }
 
     return {

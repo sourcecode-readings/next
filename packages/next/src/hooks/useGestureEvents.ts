@@ -2,13 +2,13 @@ import Vec from '@tldraw/vec'
 import type { Handler, WebKitGestureEvent } from '@use-gesture/core/types'
 import { useGesture } from '@use-gesture/react'
 import * as React from 'react'
-import { useContext } from '~hooks'
-import { TLNuTargetType } from '~types'
+import { useRendererContext } from '~hooks'
+import { TLTargetType } from '~types'
 
 type PinchHandler = Handler<'pinch', WheelEvent | PointerEvent | TouchEvent | WebKitGestureEvent>
 
 export function useGestureEvents(ref: React.RefObject<HTMLDivElement>) {
-  const { viewport, inputs, callbacks } = useContext()
+  const { viewport, inputs, callbacks } = useRendererContext()
 
   const events = React.useMemo(() => {
     const onWheel: Handler<'wheel', WheelEvent> = (gesture) => {
@@ -16,11 +16,7 @@ export function useGestureEvents(ref: React.RefObject<HTMLDivElement>) {
       event.preventDefault()
       if (inputs.state === 'pinching') return
       if (Vec.isEqual(delta, [0, 0])) return
-      callbacks.onWheel?.(
-        { type: TLNuTargetType.Canvas, target: 'canvas', order: 0 },
-        gesture,
-        event
-      )
+      callbacks.onWheel?.({ type: TLTargetType.Canvas, target: 'canvas', order: 0 }, gesture, event)
     }
 
     const onPinchStart: PinchHandler = (gesture) => {
@@ -29,7 +25,7 @@ export function useGestureEvents(ref: React.RefObject<HTMLDivElement>) {
       if (!(event.target === elm || elm?.contains(event.target as Node))) return
       if (inputs.state !== 'idle') return
       callbacks.onPinchStart?.(
-        { type: TLNuTargetType.Canvas, target: 'canvas', order: 0 },
+        { type: TLTargetType.Canvas, target: 'canvas', order: 0 },
         gesture,
         event
       )
@@ -40,11 +36,7 @@ export function useGestureEvents(ref: React.RefObject<HTMLDivElement>) {
       const { event } = gesture
       if (!(event.target === elm || elm?.contains(event.target as Node))) return
       if (inputs.state !== 'pinching') return
-      callbacks.onPinch?.(
-        { type: TLNuTargetType.Canvas, target: 'canvas', order: 0 },
-        gesture,
-        event
-      )
+      callbacks.onPinch?.({ type: TLTargetType.Canvas, target: 'canvas', order: 0 }, gesture, event)
     }
 
     const onPinchEnd: PinchHandler = (gesture) => {
@@ -54,7 +46,7 @@ export function useGestureEvents(ref: React.RefObject<HTMLDivElement>) {
       setTimeout(() => {
         if (inputs.state !== 'pinching') return
         callbacks.onPinchEnd?.(
-          { type: TLNuTargetType.Canvas, target: 'canvas', order: 0 },
+          { type: TLTargetType.Canvas, target: 'canvas', order: 0 },
           gesture,
           event
         )

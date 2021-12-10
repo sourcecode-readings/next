@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from 'react'
-import type { TLNuBounds } from '~types'
-import { useContext } from '~hooks'
+import type { TLBounds } from '~types'
+import { useRendererContext } from '~hooks'
 
-export function usePosition(ref: React.RefObject<HTMLElement>, bounds: TLNuBounds, zIndex: number) {
+export function usePosition(ref: React.RefObject<HTMLElement>, bounds: TLBounds, zIndex: number) {
   const {
     viewport: {
       camera: {
@@ -11,7 +11,7 @@ export function usePosition(ref: React.RefObject<HTMLElement>, bounds: TLNuBound
         zoom,
       },
     },
-  } = useContext()
+  } = useRendererContext()
 
   const rWidth = React.useRef(0)
   const rHeight = React.useRef(0)

@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { BoundsUtils, HTMLContainer, TLNuContextBarComponent } from '@tldraw/next'
+import { BoundsUtils, HTMLContainer, TLContextBarComponent } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
 import { useAppContext } from 'context'
 import type { NuStarShape, NuPolygonShape, Shape } from 'stores'
 
-const _NuContextBar: TLNuContextBarComponent<Shape> = ({
+const _NuContextBar: TLContextBarComponent<Shape> = ({
   shapes,
   offset,
   scaledBounds,

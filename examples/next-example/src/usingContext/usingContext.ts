@@ -1,15 +1,15 @@
 import * as React from 'react'
-import { TLNuApp } from '@tldraw/next'
+import { TLApp } from '@tldraw/next'
 import { NuBoxShape, NuEllipseShape, Shape } from 'stores'
 import { NuBoxTool, NuEllipseTool } from 'stores/tools'
 
-type NuAppContext = TLNuApp<Shape>
+type NuAppContext = TLApp<Shape>
 
 export const appContext = React.createContext({} as NuAppContext)
 
 export function useCreateAppContext() {
   const [app] = React.useState<NuAppContext>(
-    new TLNuApp<Shape>(
+    new TLApp<Shape>(
       {
         currentPageId: 'page1',
         selectedIds: [],

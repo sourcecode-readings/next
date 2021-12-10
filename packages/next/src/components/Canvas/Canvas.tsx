@@ -5,24 +5,22 @@ import { observer } from 'mobx-react-lite'
 import { Brush, Container, HTMLLayer, Indicator, Shape } from '~components'
 import {
   useCanvasEvents,
-  useContext,
   useGestureEvents,
   useResizeObserver,
   useStylesheet,
+  useRendererContext,
 } from '~hooks'
-import type { TLNuShape } from '~nu-lib'
-import type { TLNuBinding, TLNuRendererProps } from '~types'
+import type { TLShape } from '~nu-lib'
+import type { TLCanvasProps } from '~types'
 import { EMPTY_ARRAY, EMPTY_OBJECT } from '~constants'
 import { autorun } from 'mobx'
 import { ContextBarContainer } from '~components/ContextBarContainer'
 import { usePreventNavigation } from '~hooks/usePreventNavigation'
 import { BoundsDetailContainer } from '~components/BoundsDetailContainer/BoundsDetailContainer'
 
-export const Canvas = observer(function Renderer<S extends TLNuShape>({
-  bindings = EMPTY_ARRAY,
+export const Canvas = observer(function Renderer<S extends TLShape>({
   bindingShape,
   brush,
-  children,
   editingShape,
   hoveredShape,
   id,
@@ -36,12 +34,13 @@ export const Canvas = observer(function Renderer<S extends TLNuShape>({
   showBoundsDetail = true,
   showContextBar = true,
   theme = EMPTY_OBJECT,
-}: Partial<TLNuRendererProps<S>>): JSX.Element {
+  children,
+}: Partial<TLCanvasProps<S>>): JSX.Element {
   const rContainer = React.useRef<HTMLDivElement>(null)
   useStylesheet(theme, id)
   usePreventNavigation(rContainer)
 
-  const { viewport, components, meta } = useContext()
+  const { viewport, components, meta } = useRendererContext()
 
   useResizeObserver(rContainer, viewport)
   useGestureEvents(rContainer)
@@ -136,8 +135,8 @@ export const Canvas = observer(function Renderer<S extends TLNuShape>({
             </>
           )}
         </HTMLLayer>
-        {children}
       </div>
+      {children}
     </div>
   )
 })

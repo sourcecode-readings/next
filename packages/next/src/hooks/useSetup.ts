@@ -1,13 +1,13 @@
 import * as React from 'react'
-import type { TLNuSubscriptionCallback } from '~types'
-import type { TLNuApp, TLNuShape } from '~nu-lib'
+import type { TLSubscriptionCallback } from '~types'
+import type { TLApp, TLShape } from '~nu-lib'
 
-declare const window: Window & { tln: TLNuApp<any> }
+declare const window: Window & { tln: TLApp<any> }
 
-export function useSetup<S extends TLNuShape, R extends TLNuApp<S>>(
+export function useSetup<S extends TLShape, R extends TLApp<S>>(
   app: R,
-  onMount: TLNuSubscriptionCallback<S, R, 'mount'>,
-  onPersist: TLNuSubscriptionCallback<S, R, 'persist'>
+  onMount: TLSubscriptionCallback<S, R, 'mount'>,
+  onPersist: TLSubscriptionCallback<S, R, 'persist'>
 ) {
   React.useLayoutEffect(() => {
     const unsubs: (() => void)[] = []

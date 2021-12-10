@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import {
-  TLNuBounds,
+  TLBounds,
   SVGContainer,
-  TLNuIndicatorProps,
-  TLNuComponentProps,
+  TLIndicatorProps,
+  TLComponentProps,
   PointUtils,
   BoundsUtils,
-  TLNuResizeInfo,
-  TLNuBoxShape,
-  TLNuShapeProps,
+  TLResizeInfo,
+  TLBoxShape,
+  TLShapeProps,
   assignOwnProps,
 } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
@@ -21,8 +21,8 @@ export interface NuEllipseShapeProps extends NuStyleProps {
   size: number[]
 }
 
-export class NuEllipseShape extends TLNuBoxShape<NuEllipseShapeProps> {
-  constructor(props = {} as TLNuShapeProps & Partial<NuEllipseShapeProps>) {
+export class NuEllipseShape extends TLBoxShape<NuEllipseShapeProps> {
+  constructor(props = {} as TLShapeProps & Partial<NuEllipseShapeProps>) {
     super(props)
     assignOwnProps(this, props)
     makeObservable(this)
@@ -34,7 +34,7 @@ export class NuEllipseShape extends TLNuBoxShape<NuEllipseShapeProps> {
   @observable fill = '#ffffff22'
   @observable strokeWidth = 2
 
-  Component = observer(({ isSelected, events }: TLNuComponentProps) => {
+  Component = observer(({ isSelected, events }: TLComponentProps) => {
     const {
       size: [w, h],
       stroke,
@@ -64,7 +64,7 @@ export class NuEllipseShape extends TLNuBoxShape<NuEllipseShapeProps> {
     )
   })
 
-  Indicator = observer((props: TLNuIndicatorProps) => {
+  Indicator = observer((props: TLIndicatorProps) => {
     return (
       <ellipse
         cx={this.size[0] / 2}
@@ -77,13 +77,13 @@ export class NuEllipseShape extends TLNuBoxShape<NuEllipseShapeProps> {
     )
   })
 
-  getBounds = (): TLNuBounds => {
+  getBounds = (): TLBounds => {
     const [x, y] = this.point
     const [width, height] = this.size
     return BoundsUtils.getRotatedEllipseBounds(x, y, width / 2, height / 2, 0)
   }
 
-  getRotatedBounds = (): TLNuBounds => {
+  getRotatedBounds = (): TLBounds => {
     const [x, y] = this.point
     const [width, height] = this.size
     return BoundsUtils.getRotatedEllipseBounds(x, y, width / 2, height / 2, this.rotation)
@@ -110,7 +110,7 @@ export class NuEllipseShape extends TLNuBoxShape<NuEllipseShapeProps> {
     ).didIntersect
   }
 
-  hitTestBounds = (bounds: TLNuBounds): boolean => {
+  hitTestBounds = (bounds: TLBounds): boolean => {
     const { rotatedBounds } = this
 
     return (
@@ -125,7 +125,7 @@ export class NuEllipseShape extends TLNuBoxShape<NuEllipseShapeProps> {
     )
   }
 
-  onResize = (bounds: TLNuBounds, info: TLNuResizeInfo<NuEllipseShapeProps>) => {
+  onResize = (bounds: TLBounds, info: TLResizeInfo<NuEllipseShapeProps>) => {
     return this.update({
       point: [bounds.minX, bounds.minY],
       size: [Math.max(1, bounds.width), Math.max(1, bounds.height)],

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from 'react'
-import type { TLNuBounds } from '~types'
+import type { TLBounds } from '~types'
 
 export function useCounterScaledPosition(
   ref: React.RefObject<HTMLElement>,
-  bounds: TLNuBounds,
+  bounds: TLBounds,
   camera: { point: number[]; zoom: number },
   zIndex: number
 ) {

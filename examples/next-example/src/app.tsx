@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import {
-  App as TLNuAppComponent,
-  TLNuApp,
-  TLNuComponents,
-  TLNuSerializedApp,
-  TLNuSubscriptionCallbacks,
+  App as NextApp,
+  TLApp,
+  TLComponents,
+  TLSerializedApp,
+  TLSubscriptionCallbacks,
 } from '@tldraw/next'
 import {
   NuBoxShape,
@@ -30,12 +30,12 @@ import { AppUI } from 'components/AppUI'
 import { NuContextBar } from 'components/NuContextBar'
 import { appContext } from 'context'
 
-const components: TLNuComponents<Shape> = {
+const components: TLComponents<Shape> = {
   ContextBar: NuContextBar,
 }
 
 function App(): JSX.Element {
-  const [app, setApp] = React.useState<TLNuApp<Shape>>()
+  const [app, setApp] = React.useState<TLApp<Shape>>()
 
   const [shapeClasses] = React.useState(() => [
     NuBoxShape,
@@ -57,7 +57,7 @@ function App(): JSX.Element {
     NuStarTool,
   ])
 
-  const [model] = React.useState<TLNuSerializedApp>({
+  const [model] = React.useState<TLSerializedApp>({
     currentPageId: 'page1',
     selectedIds: ['dot1'],
     pages: [
@@ -72,13 +72,13 @@ function App(): JSX.Element {
           //   point: [500, 300],
           //   radius: 3,
           // },
-          // {
-          //   id: 'box1',
-          //   type: 'box',
-          //   parentId: 'page1',
-          //   point: [100, 400],
-          //   size: [100, 100],
-          // },
+          {
+            id: 'box1',
+            type: 'box',
+            parentId: 'page1',
+            point: [100, 400],
+            size: [100, 100],
+          },
           // {
           //   id: 'ellipse1',
           //   type: 'ellipse',
@@ -147,27 +147,26 @@ function App(): JSX.Element {
     ],
   })
 
-  const onMount = React.useCallback<TLNuSubscriptionCallbacks<Shape, NuApp>['onMount']>((app) => {
+  const onMount = React.useCallback<TLSubscriptionCallbacks<Shape, NuApp>['onMount']>((app) => {
     setApp(app)
   }, [])
 
-  const onPersist = React.useCallback<TLNuSubscriptionCallbacks<Shape, NuApp>['onPersist']>(() => {
+  const onPersist = React.useCallback<TLSubscriptionCallbacks<Shape, NuApp>['onPersist']>(() => {
     // todo
   }, [])
 
   return (
-    <div className="tlnu-app">
-      <appContext.Provider value={app}>
-        <TLNuAppComponent
-          onMount={onMount}
-          onPersist={onPersist}
-          model={model}
-          shapeClasses={shapeClasses}
-          toolClasses={toolClasses}
-          components={components}
-        />
+    <div className="tl-app">
+      <NextApp
+        onMount={onMount}
+        onPersist={onPersist}
+        model={model}
+        shapeClasses={shapeClasses}
+        toolClasses={toolClasses}
+        components={components}
+      >
         <AppUI />
-      </appContext.Provider>
+      </NextApp>
     </div>
   )
 }

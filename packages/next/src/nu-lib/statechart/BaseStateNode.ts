@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { action, makeObservable, observable } from 'mobx'
-import type { TLNuShape } from '~nu-lib'
+import type { TLShape } from '~nu-lib'
 import type {
-  TLNuOnTransition,
-  TLNuCallbacks,
-  TLNuKeyboardHandler,
-  TLNuOnEnter,
-  TLNuOnExit,
-  TLNuPinchHandler,
-  TLNuPointerHandler,
-  TLNuShortcut,
-  TLNuWheelHandler,
-  TLNuStateEvents,
+  TLOnTransition,
+  TLCallbacks,
+  TLKeyboardHandler,
+  TLOnEnter,
+  TLOnExit,
+  TLPinchHandler,
+  TLPointerHandler,
+  TLShortcut,
+  TLWheelHandler,
+  TLStateEvents,
 } from '~types'
 import { KeyUtils } from '~utils'
 
-export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
+export class BaseStateNode<R = any, P = any> implements Partial<TLCallbacks> {
   constructor() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -140,11 +140,8 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
 
   /* ----------------- Internal Events ---------------- */
 
-  private forwardEvent = <
-    K extends keyof TLNuStateEvents,
-    A extends Parameters<TLNuStateEvents[K]>
-  >(
-    eventName: keyof TLNuStateEvents,
+  private forwardEvent = <K extends keyof TLStateEvents, A extends Parameters<TLStateEvents[K]>>(
+    eventName: keyof TLStateEvents,
     ...args: A
   ) => {
     if (this.currentState?._events?.[eventName]) {
@@ -154,7 +151,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
     }
   }
 
-  _events: TLNuStateEvents = {
+  _events: TLStateEvents = {
     /**
      * Handle the change from inactive to active.
      *
@@ -190,7 +187,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to wheel events forwarded to the state by its parent. Run the current active child
      * state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onWheel: (info, gesture, event) => {
@@ -202,7 +199,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pointer down events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onPointerDown: (info, event) => {
@@ -214,7 +211,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pointer up events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onPointerUp: (info, event) => {
@@ -226,7 +223,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pointer move events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onPointerMove: (info, event) => {
@@ -238,7 +235,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pointer enter events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onPointerEnter: (info, event) => {
@@ -250,7 +247,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pointer leave events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onPointerLeave: (info, event) => {
@@ -262,7 +259,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to key down events forwarded to the state by its parent. Run the current active child
      * state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onKeyDown: (info, event) => {
@@ -275,7 +272,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to key up events forwarded to the state by its parent. Run the current active child
      * state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     onKeyUp: (info, event) => {
@@ -288,7 +285,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pinch start events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param gesture The gesture info from useGesture.
      * @param event The DOM event.
      */
@@ -301,7 +298,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pinch events forwarded to the state by its parent. Run the current active child
      * state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param gesture The gesture info from useGesture.
      * @param event The DOM event.
      */
@@ -314,7 +311,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * Respond to pinch end events forwarded to the state by its parent. Run the current active
      * child state's handler, then the state's own handler.
      *
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param gesture The gesture info from useGesture.
      * @param event The DOM event.
      */
@@ -327,7 +324,7 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
      * When a modifier key is pressed, treat it as a pointer move.
      *
      * @private
-     * @param info The event info from TLNuInputs.
+     * @param info The event info from TLInputs.
      * @param event The DOM event.
      */
     handleModifierKey: (info, event) => {
@@ -347,33 +344,33 @@ export class BaseStateNode<R = any, P = any> implements Partial<TLNuCallbacks> {
 
   static id: string
 
-  shortcuts?: TLNuShortcut[]
+  shortcuts?: TLShortcut[]
 
-  onEnter?: TLNuOnEnter
+  onEnter?: TLOnEnter
 
-  onExit?: TLNuOnExit
+  onExit?: TLOnExit
 
-  onTransition?: TLNuOnTransition
+  onTransition?: TLOnTransition
 
-  onWheel?: TLNuWheelHandler
+  onWheel?: TLWheelHandler
 
-  onPointerDown?: TLNuPointerHandler
+  onPointerDown?: TLPointerHandler
 
-  onPointerUp?: TLNuPointerHandler
+  onPointerUp?: TLPointerHandler
 
-  onPointerMove?: TLNuPointerHandler
+  onPointerMove?: TLPointerHandler
 
-  onPointerEnter?: TLNuPointerHandler
+  onPointerEnter?: TLPointerHandler
 
-  onPointerLeave?: TLNuPointerHandler
+  onPointerLeave?: TLPointerHandler
 
-  onKeyDown?: TLNuKeyboardHandler
+  onKeyDown?: TLKeyboardHandler
 
-  onKeyUp?: TLNuKeyboardHandler
+  onKeyUp?: TLKeyboardHandler
 
-  onPinchStart?: TLNuPinchHandler
+  onPinchStart?: TLPinchHandler
 
-  onPinch?: TLNuPinchHandler
+  onPinch?: TLPinchHandler
 
-  onPinchEnd?: TLNuPinchHandler
+  onPinchEnd?: TLPinchHandler
 }

@@ -2,14 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import type { TLNuApp } from '@tldraw/next'
 import type { Shape } from 'stores'
+import { useAppContext } from '@tldraw/next'
 
-interface ToolBarProps {
-  app: TLNuApp<Shape>
-}
+export const ToolBar = observer(function ToolBar(): JSX.Element {
+  const app = useAppContext<Shape>()
 
-export const ToolBar = observer(function ToolBar({ app }: ToolBarProps): JSX.Element {
   const handleToolClick = React.useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       const tool = e.currentTarget.dataset.tool
@@ -52,7 +50,7 @@ export const ToolBar = observer(function ToolBar({ app }: ToolBarProps): JSX.Ele
   }, [app])
 
   return (
-    <div className="tlnu-toolbar">
+    <div className="tl-toolbar">
       <input type="checkbox" checked={app.isToolLocked} onChange={handleToolLockClick} />
       {Array.from(app.children.values()).map((tool) => {
         const isActive = app.selectedTool === tool

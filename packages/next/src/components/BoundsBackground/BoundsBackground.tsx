@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
 import { useBoundsEvents } from '~hooks/useBoundsEvents'
-import type { TLNuBoundsComponentProps } from '~types'
+import type { TLBoundsComponentProps } from '~types'
 import { SVGContainer } from '~components'
-import type { TLNuShape } from '~nu-lib'
+import type { TLShape } from '~nu-lib'
 
-export const BoundsBackground = observer(function BoundsBackground<S extends TLNuShape>({
+export const BoundsBackground = observer(function BoundsBackground<S extends TLShape>({
   bounds,
-}: TLNuBoundsComponentProps<S>) {
+}: TLBoundsComponentProps<S>) {
   const events = useBoundsEvents('background')
 
   return (

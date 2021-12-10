@@ -2,21 +2,21 @@
 import * as React from 'react'
 import {
   SVGContainer,
-  TLNuIndicatorProps,
-  TLNuComponentProps,
-  TLNuPolygonShape,
-  TLNuPolygonShapeProps,
-  TLNuShapeProps,
+  TLIndicatorProps,
+  TLComponentProps,
+  TLPolygonShape,
+  TLPolygonShapeProps,
+  TLShapeProps,
   assignOwnProps,
 } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
 import { makeObservable, observable } from 'mobx'
 import type { NuStyleProps } from './NuStyleProps'
 
-interface NuPolygonShapeProps extends NuStyleProps, TLNuPolygonShapeProps {}
+interface NuPolygonShapeProps extends NuStyleProps, TLPolygonShapeProps {}
 
-export class NuPolygonShape extends TLNuPolygonShape<NuPolygonShapeProps> {
-  constructor(props = {} as TLNuShapeProps & Partial<NuPolygonShapeProps>) {
+export class NuPolygonShape extends TLPolygonShape<NuPolygonShapeProps> {
+  constructor(props = {} as TLShapeProps & Partial<NuPolygonShapeProps>) {
     super(props)
     assignOwnProps(this, props)
     makeObservable(this)
@@ -28,7 +28,7 @@ export class NuPolygonShape extends TLNuPolygonShape<NuPolygonShapeProps> {
 
   static id = 'polygon'
 
-  Component = observer(({ events, isSelected }: TLNuComponentProps) => {
+  Component = observer(({ events, isSelected }: TLComponentProps) => {
     const {
       offset: [x, y],
       stroke,
@@ -40,24 +40,21 @@ export class NuPolygonShape extends TLNuPolygonShape<NuPolygonShapeProps> {
 
     return (
       <SVGContainer {...events}>
-        <polygon
-          className={isSelected ? 'nu-hitarea-fill' : 'nu-hitarea-stroke'}
-          transform={`translate(${x}, ${y})`}
-          points={path}
-        />
-        <polygon
-          transform={`translate(${x}, ${y})`}
-          points={path}
-          stroke={stroke}
-          fill={fill}
-          strokeWidth={strokeWidth}
-          strokeLinejoin="round"
-        />
+        <g transform={`translate(${x}, ${y})`}>
+          <polygon className={isSelected ? 'nu-hitarea-fill' : 'nu-hitarea-stroke'} points={path} />
+          <polygon
+            points={path}
+            stroke={stroke}
+            fill={fill}
+            strokeWidth={strokeWidth}
+            strokeLinejoin="round"
+          />
+        </g>
       </SVGContainer>
     )
   })
 
-  Indicator = observer((props: TLNuIndicatorProps) => {
+  Indicator = observer((props: TLIndicatorProps) => {
     const {
       offset: [x, y],
       strokeWidth,

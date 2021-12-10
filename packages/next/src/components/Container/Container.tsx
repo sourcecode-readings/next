@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import type { TLNuBounds } from '~types'
+import type { TLBounds } from '~types'
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 interface ContainerProps extends React.HTMLProps<HTMLDivElement> {
   id?: string
-  bounds: TLNuBounds
+  bounds: TLBounds
   zIndex?: number
   rotation?: number
   className?: string

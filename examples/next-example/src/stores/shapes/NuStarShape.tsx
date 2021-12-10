@@ -2,21 +2,21 @@
 import * as React from 'react'
 import {
   SVGContainer,
-  TLNuIndicatorProps,
-  TLNuComponentProps,
-  TLNuStarShape,
-  TLNuStarShapeProps,
-  TLNuShapeProps,
+  TLIndicatorProps,
+  TLComponentProps,
+  TLStarShape,
+  TLStarShapeProps,
+  TLShapeProps,
   assignOwnProps,
 } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
 import { makeObservable, observable } from 'mobx'
 import type { NuStyleProps } from './NuStyleProps'
 
-interface NuStarShapeProps extends NuStyleProps, TLNuStarShapeProps {}
+interface NuStarShapeProps extends NuStyleProps, TLStarShapeProps {}
 
-export class NuStarShape extends TLNuStarShape<NuStarShapeProps> {
-  constructor(props = {} as TLNuShapeProps & Partial<NuStarShapeProps>) {
+export class NuStarShape extends TLStarShape<NuStarShapeProps> {
+  constructor(props = {} as TLShapeProps & Partial<NuStarShapeProps>) {
     super(props)
     assignOwnProps(this, props)
     makeObservable(this)
@@ -28,7 +28,7 @@ export class NuStarShape extends TLNuStarShape<NuStarShapeProps> {
 
   static id = 'star'
 
-  Component = observer(({ events, isSelected }: TLNuComponentProps) => {
+  Component = observer(({ events, isSelected }: TLComponentProps) => {
     const {
       offset: [x, y],
       stroke,
@@ -58,7 +58,7 @@ export class NuStarShape extends TLNuStarShape<NuStarShapeProps> {
     )
   })
 
-  Indicator = observer((props: TLNuIndicatorProps) => {
+  Indicator = observer((props: TLIndicatorProps) => {
     const {
       offset: [x, y],
       strokeWidth,

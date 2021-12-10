@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import type { TLNuShape } from '~nu-lib'
+import type { TLShape } from '~nu-lib'
 import { Container, SVGContainer } from '~components'
 
 interface IndicatorProps {
-  shape: TLNuShape
+  shape: TLShape
   isHovered?: boolean
   isSelected?: boolean
   isBinding?: boolean

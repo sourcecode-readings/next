@@ -1,4 +1,4 @@
-import { TLNuApp, TLNuBinding } from '@tldraw/next'
+import { TLApp, TLBinding } from '@tldraw/next'
 import {
   NuBoxShape,
   NuDotShape,
@@ -17,7 +17,7 @@ import {
   NuHighlighterTool,
 } from './tools'
 
-export class NuApp extends TLNuApp<Shape> {
+export class NuApp extends TLApp<Shape> {
   constructor() {
     super()
     this.registerShapes(

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
 import { Container } from '~components'
-import type { TLNuShape } from '~nu-lib'
+import type { TLShape } from '~nu-lib'
 import { useShapeEvents } from '~hooks/useShapeEvents'
 
 interface ShapeProps {
-  shape: TLNuShape
+  shape: TLShape
   zIndex: number
   isHovered?: boolean
   isSelected?: boolean

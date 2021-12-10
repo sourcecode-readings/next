@@ -2,16 +2,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import type { TLNuApp } from '@tldraw/next'
+import { useAppContext } from '@tldraw/next'
 import type { Shape } from 'stores'
 
-interface StatusBarProps {
-  app: TLNuApp<Shape>
-}
-
-export const StatusBar = observer(function StatusBar({ app }: StatusBarProps) {
+export const StatusBar = observer(function StatusBar() {
+  const app = useAppContext<Shape>()
   return (
-    <div className="tlnu-debug">
+    <div className="tl-debug">
       {app.selectedTool.id} | {app.selectedTool.currentState.id}
     </div>
   )

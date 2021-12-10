@@ -2,19 +2,19 @@
 import * as React from 'react'
 import {
   SVGContainer,
-  TLNuComponentProps,
-  TLNuBoxShape,
-  TLNuShapeProps,
-  TLNuBoxShapeProps,
+  TLComponentProps,
+  TLBoxShape,
+  TLShapeProps,
+  TLBoxShapeProps,
 } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
 import { makeObservable, observable } from 'mobx'
 import type { NuStyleProps } from './NuStyleProps'
 
-export interface NuBoxShapeProps extends TLNuBoxShapeProps, NuStyleProps {}
+export interface NuBoxShapeProps extends TLBoxShapeProps, NuStyleProps {}
 
-export class NuBoxShape extends TLNuBoxShape<NuBoxShapeProps> {
-  constructor(props = {} as TLNuShapeProps & Partial<NuBoxShapeProps>) {
+export class NuBoxShape extends TLBoxShape<NuBoxShapeProps> {
+  constructor(props = {} as TLShapeProps & Partial<NuBoxShapeProps>) {
     super(props)
     this.init(props)
     makeObservable(this)
@@ -26,7 +26,7 @@ export class NuBoxShape extends TLNuBoxShape<NuBoxShapeProps> {
   @observable fill = '#ffffff22'
   @observable strokeWidth = 2
 
-  Component = observer(({ events, isSelected }: TLNuComponentProps) => {
+  Component = observer(({ events, isSelected }: TLComponentProps) => {
     const {
       size: [w, h],
       stroke,

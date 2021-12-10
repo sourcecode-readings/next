@@ -4,20 +4,20 @@ import {
   assignOwnProps,
   SVGContainer,
   SvgPathUtils,
-  TLNuComponentProps,
-  TLNuDrawShape,
-  TLNuDrawShapeProps,
-  TLNuIndicatorProps,
-  TLNuShapeProps,
+  TLComponentProps,
+  TLDrawShape,
+  TLDrawShapeProps,
+  TLIndicatorProps,
+  TLShapeProps,
 } from '@tldraw/next'
 import { observer } from 'mobx-react-lite'
 import { observable, computed, makeObservable } from 'mobx'
 import type { NuStyleProps } from './NuStyleProps'
 
-export interface NuHighlighterShapeProps extends TLNuDrawShapeProps, NuStyleProps {}
+export interface NuHighlighterShapeProps extends TLDrawShapeProps, NuStyleProps {}
 
-export class NuHighlighterShape extends TLNuDrawShape<NuHighlighterShapeProps> {
-  constructor(props = {} as TLNuShapeProps & Partial<NuHighlighterShapeProps>) {
+export class NuHighlighterShape extends TLDrawShape<NuHighlighterShapeProps> {
+  constructor(props = {} as TLShapeProps & Partial<NuHighlighterShapeProps>) {
     super(props)
     assignOwnProps(this, props)
     makeObservable(this)
@@ -34,7 +34,7 @@ export class NuHighlighterShape extends TLNuDrawShape<NuHighlighterShapeProps> {
     return SvgPathUtils.getCurvedPathForPoints(points)
   }
 
-  Component = observer(({ events }: TLNuComponentProps) => {
+  Component = observer(({ events }: TLComponentProps) => {
     const { pointsPath, stroke, fill, strokeWidth } = this
 
     return (
@@ -53,7 +53,7 @@ export class NuHighlighterShape extends TLNuDrawShape<NuHighlighterShapeProps> {
     )
   })
 
-  Indicator = observer((props: TLNuIndicatorProps) => {
+  Indicator = observer((props: TLIndicatorProps) => {
     const { pointsPath } = this
     return <path d={pointsPath} fill="none" />
   })

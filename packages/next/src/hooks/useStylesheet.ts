@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { TLNuTheme } from '~types'
+import type { TLTheme } from '~types'
 
 const styles = new Map<string, HTMLStyleElement>()
 
@@ -65,7 +65,7 @@ const css = (strings: TemplateStringsArray, ...args: unknown[]) =>
     ''
   )
 
-const defaultTheme: TLNuTheme = {
+const defaultTheme: TLTheme = {
   accent: 'rgb(255, 0, 0)',
   brushFill: 'rgba(0,0,0,.05)',
   brushStroke: 'rgba(0,0,0,.25)',
@@ -508,8 +508,8 @@ const tlcss = css`
   }
 `
 
-export function useStylesheet(theme?: Partial<TLNuTheme>, selector?: string) {
-  const tltheme = React.useMemo<TLNuTheme>(
+export function useStylesheet(theme?: Partial<TLTheme>, selector?: string) {
+  const tltheme = React.useMemo<TLTheme>(
     () => ({
       ...defaultTheme,
       ...theme,

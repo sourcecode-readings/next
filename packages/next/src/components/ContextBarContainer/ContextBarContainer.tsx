@@ -1,24 +1,24 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useContext } from '~hooks'
+import { useRendererContext } from '~hooks'
 import { BoundsUtils } from '~utils'
 import { useCounterScaledPosition } from '~hooks'
-import type { TLNuShape } from '~nu-lib'
-import type { TLNuBounds, TLNuOffset } from '~types'
+import type { TLShape } from '~nu-lib'
+import type { TLBounds, TLOffset } from '~types'
 
 const stopEventPropagation = (e: React.PointerEvent) => e.stopPropagation()
 
-export interface TLNuContextBarContainerProps {
-  shapes: TLNuShape[]
+export interface TLContextBarContainerProps {
+  shapes: TLShape[]
   hidden: boolean
-  bounds: TLNuBounds
+  bounds: TLBounds
 }
 
 export const ContextBarContainer = observer(function ContextBar({
   shapes,
   hidden,
   bounds,
-}: TLNuContextBarContainerProps) {
+}: TLContextBarContainerProps) {
   const {
     components: { ContextBar },
     viewport: {
@@ -28,7 +28,7 @@ export const ContextBarContainer = observer(function ContextBar({
         zoom,
       },
     },
-  } = useContext()
+  } = useRendererContext()
 
   const rBounds = React.useRef<HTMLDivElement>(null)
   const scaledBounds = BoundsUtils.multiplyBounds(bounds, zoom)
@@ -37,7 +37,7 @@ export const ContextBarContainer = observer(function ContextBar({
   const minY = (bounds.minY + y) * zoom
   const maxY = (bounds.maxY + y) * zoom
 
-  const screenBounds: TLNuBounds = {
+  const screenBounds: TLBounds = {
     minX,
     minY,
     maxX,
@@ -46,7 +46,7 @@ export const ContextBarContainer = observer(function ContextBar({
     height: maxY - minY,
   }
 
-  const offsets: TLNuOffset = {
+  const offsets: TLOffset = {
     left: screenBounds.minX,
     right: vpBounds.width - screenBounds.maxX,
     top: screenBounds.minY,

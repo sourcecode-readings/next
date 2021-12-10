@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
-import type { TLNuBounds } from '~types'
+import type { TLBounds } from '~types'
 import { Container, SVGContainer } from '~components'
 
 interface BrushProps {
-  brush: TLNuBounds
+  brush: TLBounds
 }
 
 export const Brush = observer(function Brush({ brush }: BrushProps) {

@@ -1,7 +1,7 @@
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import * as React from 'react'
-import { useContext } from '~hooks'
+import { useRendererContext } from '~hooks'
 
 interface SVGLayerProps {
   children: React.ReactNode
@@ -10,7 +10,7 @@ interface SVGLayerProps {
 export const SVGLayer = observer(function SVGLayer({ children }: SVGLayerProps) {
   const rGroup = React.useRef<SVGGElement>(null)
 
-  const { viewport } = useContext()
+  const { viewport } = useRendererContext()
 
   React.useEffect(
     () =>

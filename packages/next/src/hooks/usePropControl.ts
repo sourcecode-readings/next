@@ -1,13 +1,13 @@
 import * as React from 'react'
-import type { TLNuAppPropsWithoutApp, TLNuAppPropsWithApp } from '~types'
-import type { TLNuApp, TLNuShape } from '~nu-lib'
+import type { TLAppPropsWithoutApp, TLAppPropsWithApp } from '~types'
+import type { TLApp, TLShape } from '~nu-lib'
 
-export function usePropControl<S extends TLNuShape, R extends TLNuApp<S> = TLNuApp<S>>(
+export function usePropControl<S extends TLShape, R extends TLApp<S> = TLApp<S>>(
   app: R,
-  props: TLNuAppPropsWithoutApp<S> | TLNuAppPropsWithApp<S, R>
+  props: TLAppPropsWithoutApp<S> | TLAppPropsWithApp<S, R>
 ) {
   React.useEffect(() => {
     if (!('model' in props)) return
     if (props.model) app.history.deserialize(props.model)
-  }, [(props as TLNuAppPropsWithoutApp<S>).model])
+  }, [(props as TLAppPropsWithoutApp<S>).model])
 }

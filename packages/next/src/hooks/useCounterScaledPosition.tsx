@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { useContext } from '~hooks'
-import type { TLNuBounds } from '~types'
+import { useRendererContext } from '~hooks'
+import type { TLBounds } from '~types'
 
 export function useCounterScaledPosition(
   ref: React.RefObject<HTMLElement>,
-  bounds: TLNuBounds,
+  bounds: TLBounds,
   zoom: number,
   zIndex: number
 ) {

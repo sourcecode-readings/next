@@ -2,13 +2,13 @@
 import { Vec } from '@tldraw/vec'
 
 import {
-  TLNuBounds,
-  TLNuBoundsCorner,
-  TLNuBoundsEdge,
-  TLNuBoundsWithCenter,
-  TLNuOffset,
-  TLNuSnap,
-  TLNuSnapPoints,
+  TLBounds,
+  TLBoundsCorner,
+  TLBoundsEdge,
+  TLBoundsWithCenter,
+  TLOffset,
+  TLSnap,
+  TLSnapPoints,
 } from '~types'
 
 export class BoundsUtils {
@@ -27,7 +27,7 @@ export class BoundsUtils {
     ]
   }
 
-  static getBoundsSides(bounds: TLNuBounds): [string, number[][]][] {
+  static getBoundsSides(bounds: TLBounds): [string, number[][]][] {
     return BoundsUtils.getRectangleSides([bounds.minX, bounds.minY], [bounds.width, bounds.height])
   }
 
@@ -40,7 +40,7 @@ export class BoundsUtils {
    * expandBounds(myBounds, [100, 100])
    * ```
    */
-  static expandBounds(bounds: TLNuBounds, delta: number): TLNuBounds {
+  static expandBounds(bounds: TLBounds, delta: number): TLBounds {
     return {
       minX: bounds.minX - delta,
       minY: bounds.minY - delta,
@@ -58,7 +58,7 @@ export class BoundsUtils {
    * @param b Bounds
    * @returns
    */
-  static boundsCollide(a: TLNuBounds, b: TLNuBounds): boolean {
+  static boundsCollide(a: TLBounds, b: TLBounds): boolean {
     return !(a.maxX < b.minX || a.minX > b.maxX || a.maxY < b.minY || a.minY > b.maxY)
   }
 
@@ -69,7 +69,7 @@ export class BoundsUtils {
    * @param b Bounds
    * @returns
    */
-  static boundsContain(a: TLNuBounds, b: TLNuBounds): boolean {
+  static boundsContain(a: TLBounds, b: TLBounds): boolean {
     return a.minX < b.minX && a.minY < b.minY && a.maxY > b.maxY && a.maxX > b.maxX
   }
 
@@ -80,7 +80,7 @@ export class BoundsUtils {
    * @param b Bounds
    * @returns
    */
-  static boundsContained(a: TLNuBounds, b: TLNuBounds): boolean {
+  static boundsContained(a: TLBounds, b: TLBounds): boolean {
     return BoundsUtils.boundsContain(b, a)
   }
 
@@ -91,7 +91,7 @@ export class BoundsUtils {
    * @param b Bounds
    * @returns
    */
-  static boundsAreEqual(a: TLNuBounds, b: TLNuBounds): boolean {
+  static boundsAreEqual(a: TLBounds, b: TLBounds): boolean {
     return !(b.maxX !== a.maxX || b.minX !== a.minX || b.maxY !== a.maxY || b.minY !== a.minY)
   }
 
@@ -101,7 +101,7 @@ export class BoundsUtils {
    * @param points
    * @param rotation (optional) The bounding box's rotation.
    */
-  static getBoundsFromPoints(points: number[][], rotation = 0): TLNuBounds {
+  static getBoundsFromPoints(points: number[][], rotation = 0): TLBounds {
     let minX = Infinity
     let minY = Infinity
     let maxX = -Infinity
@@ -143,7 +143,7 @@ export class BoundsUtils {
    * @param bounds
    * @param center
    */
-  static centerBounds(bounds: TLNuBounds, point: number[]): TLNuBounds {
+  static centerBounds(bounds: TLBounds, point: number[]): TLBounds {
     const boundsCenter = BoundsUtils.getBoundsCenter(bounds)
     const dx = point[0] - boundsCenter[0]
     const dy = point[1] - boundsCenter[1]
@@ -156,7 +156,7 @@ export class BoundsUtils {
    * @param bounds
    * @param gridSize
    */
-  static snapBoundsToGrid(bounds: TLNuBounds, gridSize: number): TLNuBounds {
+  static snapBoundsToGrid(bounds: TLBounds, gridSize: number): TLBounds {
     const minX = Math.round(bounds.minX / gridSize) * gridSize
     const minY = Math.round(bounds.minY / gridSize) * gridSize
     const maxX = Math.round(bounds.maxX / gridSize) * gridSize
@@ -178,7 +178,7 @@ export class BoundsUtils {
    * @param delta
    * @returns
    */
-  static translateBounds(bounds: TLNuBounds, delta: number[]): TLNuBounds {
+  static translateBounds(bounds: TLBounds, delta: number[]): TLBounds {
     return {
       minX: bounds.minX + delta[0],
       minY: bounds.minY + delta[1],
@@ -189,7 +189,7 @@ export class BoundsUtils {
     }
   }
 
-  static multiplyBounds(bounds: TLNuBounds, n: number) {
+  static multiplyBounds(bounds: TLBounds, n: number) {
     const center = BoundsUtils.getBoundsCenter(bounds)
     return BoundsUtils.centerBounds(
       {
@@ -204,7 +204,7 @@ export class BoundsUtils {
     )
   }
 
-  static divideBounds(bounds: TLNuBounds, n: number) {
+  static divideBounds(bounds: TLBounds, n: number) {
     const center = BoundsUtils.getBoundsCenter(bounds)
     return BoundsUtils.centerBounds(
       {
@@ -226,7 +226,7 @@ export class BoundsUtils {
    * @param center
    * @param rotation
    */
-  static getRotatedBounds(bounds: TLNuBounds, rotation = 0): TLNuBounds {
+  static getRotatedBounds(bounds: TLBounds, rotation = 0): TLBounds {
     const corners = BoundsUtils.getRotatedCorners(bounds, rotation)
 
     let minX = Infinity
@@ -267,7 +267,7 @@ export class BoundsUtils {
     rx: number,
     ry: number,
     rotation = 0
-  ): TLNuBounds {
+  ): TLBounds {
     const c = Math.cos(rotation)
     const s = Math.sin(rotation)
     const w = Math.hypot(rx * c, ry * s)
@@ -290,7 +290,7 @@ export class BoundsUtils {
    * @param b Bounding box
    * @returns
    */
-  static getExpandedBounds(a: TLNuBounds, b: TLNuBounds): TLNuBounds {
+  static getExpandedBounds(a: TLBounds, b: TLBounds): TLBounds {
     const minX = Math.min(a.minX, b.minX)
     const minY = Math.min(a.minY, b.minY)
     const maxX = Math.max(a.maxX, b.maxX)
@@ -306,7 +306,7 @@ export class BoundsUtils {
    *
    * @returns
    */
-  static getCommonBounds(bounds: TLNuBounds[]): TLNuBounds {
+  static getCommonBounds(bounds: TLBounds[]): TLBounds {
     if (bounds.length < 2) return bounds[0]
     let result = bounds[0]
     for (let i = 1; i < bounds.length; i++) {
@@ -315,7 +315,7 @@ export class BoundsUtils {
     return result
   }
 
-  static getRotatedCorners(b: TLNuBounds, rotation = 0): number[][] {
+  static getRotatedCorners(b: TLBounds, rotation = 0): number[][] {
     const center = [b.minX + b.width / 2, b.minY + b.height / 2]
     const corners = [
       [b.minX, b.minY],
@@ -329,12 +329,12 @@ export class BoundsUtils {
   }
 
   static getTransformedBoundingBox(
-    bounds: TLNuBounds,
-    handle: TLNuBoundsCorner | TLNuBoundsEdge | 'center',
+    bounds: TLBounds,
+    handle: TLBoundsCorner | TLBoundsEdge | 'center',
     delta: number[],
     rotation = 0,
     isAspectRatioLocked = false
-  ): TLNuBounds & { scaleX: number; scaleY: number } {
+  ): TLBounds & { scaleX: number; scaleY: number } {
     // Create top left and bottom right corners.
     const [ax0, ay0] = [bounds.minX, bounds.minY]
     const [ax1, ay1] = [bounds.maxX, bounds.maxY]
@@ -369,30 +369,30 @@ The dragging handle (corner or edge) will determine which
 corners should change.
 */
     switch (handle) {
-      case TLNuBoundsEdge.Top:
-      case TLNuBoundsCorner.TopLeft:
-      case TLNuBoundsCorner.TopRight: {
+      case TLBoundsEdge.Top:
+      case TLBoundsCorner.TopLeft:
+      case TLBoundsCorner.TopRight: {
         by0 += dy
         break
       }
-      case TLNuBoundsEdge.Bottom:
-      case TLNuBoundsCorner.BottomLeft:
-      case TLNuBoundsCorner.BottomRight: {
+      case TLBoundsEdge.Bottom:
+      case TLBoundsCorner.BottomLeft:
+      case TLBoundsCorner.BottomRight: {
         by1 += dy
         break
       }
     }
 
     switch (handle) {
-      case TLNuBoundsEdge.Left:
-      case TLNuBoundsCorner.TopLeft:
-      case TLNuBoundsCorner.BottomLeft: {
+      case TLBoundsEdge.Left:
+      case TLBoundsCorner.TopLeft:
+      case TLBoundsCorner.BottomLeft: {
         bx0 += dx
         break
       }
-      case TLNuBoundsEdge.Right:
-      case TLNuBoundsCorner.TopRight:
-      case TLNuBoundsCorner.BottomRight: {
+      case TLBoundsEdge.Right:
+      case TLBoundsCorner.TopRight:
+      case TLBoundsCorner.BottomRight: {
         bx1 += dx
         break
       }
@@ -424,36 +424,36 @@ new box's aspect ratio matches the original aspect ratio.
       const th = bh * (scaleX < 0 ? 1 : -1) * ar
 
       switch (handle) {
-        case TLNuBoundsCorner.TopLeft: {
+        case TLBoundsCorner.TopLeft: {
           if (isTall) by0 = by1 + tw
           else bx0 = bx1 + th
           break
         }
-        case TLNuBoundsCorner.TopRight: {
+        case TLBoundsCorner.TopRight: {
           if (isTall) by0 = by1 + tw
           else bx1 = bx0 - th
           break
         }
-        case TLNuBoundsCorner.BottomRight: {
+        case TLBoundsCorner.BottomRight: {
           if (isTall) by1 = by0 - tw
           else bx1 = bx0 - th
           break
         }
-        case TLNuBoundsCorner.BottomLeft: {
+        case TLBoundsCorner.BottomLeft: {
           if (isTall) by1 = by0 - tw
           else bx0 = bx1 + th
           break
         }
-        case TLNuBoundsEdge.Bottom:
-        case TLNuBoundsEdge.Top: {
+        case TLBoundsEdge.Bottom:
+        case TLBoundsEdge.Top: {
           const m = (bx0 + bx1) / 2
           const w = bh * ar
           bx0 = m - w / 2
           bx1 = m + w / 2
           break
         }
-        case TLNuBoundsEdge.Left:
-        case TLNuBoundsEdge.Right: {
+        case TLBoundsEdge.Left:
+        case TLBoundsEdge.Right: {
           const m = (by0 + by1) / 2
           const h = bw / ar
           by0 = m - h / 2
@@ -479,44 +479,44 @@ so that the two anchor points (initial and result) will be equal.
       const c1 = Vec.med([bx0, by0], [bx1, by1])
 
       switch (handle) {
-        case TLNuBoundsCorner.TopLeft: {
+        case TLBoundsCorner.TopLeft: {
           cv = Vec.sub(Vec.rotWith([bx1, by1], c1, rotation), Vec.rotWith([ax1, ay1], c0, rotation))
           break
         }
-        case TLNuBoundsCorner.TopRight: {
+        case TLBoundsCorner.TopRight: {
           cv = Vec.sub(Vec.rotWith([bx0, by1], c1, rotation), Vec.rotWith([ax0, ay1], c0, rotation))
           break
         }
-        case TLNuBoundsCorner.BottomRight: {
+        case TLBoundsCorner.BottomRight: {
           cv = Vec.sub(Vec.rotWith([bx0, by0], c1, rotation), Vec.rotWith([ax0, ay0], c0, rotation))
           break
         }
-        case TLNuBoundsCorner.BottomLeft: {
+        case TLBoundsCorner.BottomLeft: {
           cv = Vec.sub(Vec.rotWith([bx1, by0], c1, rotation), Vec.rotWith([ax1, ay0], c0, rotation))
           break
         }
-        case TLNuBoundsEdge.Top: {
+        case TLBoundsEdge.Top: {
           cv = Vec.sub(
             Vec.rotWith(Vec.med([bx0, by1], [bx1, by1]), c1, rotation),
             Vec.rotWith(Vec.med([ax0, ay1], [ax1, ay1]), c0, rotation)
           )
           break
         }
-        case TLNuBoundsEdge.Left: {
+        case TLBoundsEdge.Left: {
           cv = Vec.sub(
             Vec.rotWith(Vec.med([bx1, by0], [bx1, by1]), c1, rotation),
             Vec.rotWith(Vec.med([ax1, ay0], [ax1, ay1]), c0, rotation)
           )
           break
         }
-        case TLNuBoundsEdge.Bottom: {
+        case TLBoundsEdge.Bottom: {
           cv = Vec.sub(
             Vec.rotWith(Vec.med([bx0, by0], [bx1, by0]), c1, rotation),
             Vec.rotWith(Vec.med([ax0, ay0], [ax1, ay0]), c0, rotation)
           )
           break
         }
-        case TLNuBoundsEdge.Right: {
+        case TLBoundsEdge.Right: {
           cv = Vec.sub(
             Vec.rotWith(Vec.med([bx0, by0], [bx0, by1]), c1, rotation),
             Vec.rotWith(Vec.med([ax0, ay0], [ax0, ay1]), c0, rotation)
@@ -557,59 +557,59 @@ left past the initial left edge) then swap points on that axis.
   }
 
   static getTransformAnchor(
-    type: TLNuBoundsEdge | TLNuBoundsCorner,
+    type: TLBoundsEdge | TLBoundsCorner,
     isFlippedX: boolean,
     isFlippedY: boolean
-  ): TLNuBoundsCorner | TLNuBoundsEdge {
-    let anchor: TLNuBoundsCorner | TLNuBoundsEdge = type
+  ): TLBoundsCorner | TLBoundsEdge {
+    let anchor: TLBoundsCorner | TLBoundsEdge = type
 
     // Change corner anchors if flipped
     switch (type) {
-      case TLNuBoundsCorner.TopLeft: {
+      case TLBoundsCorner.TopLeft: {
         if (isFlippedX && isFlippedY) {
-          anchor = TLNuBoundsCorner.BottomRight
+          anchor = TLBoundsCorner.BottomRight
         } else if (isFlippedX) {
-          anchor = TLNuBoundsCorner.TopRight
+          anchor = TLBoundsCorner.TopRight
         } else if (isFlippedY) {
-          anchor = TLNuBoundsCorner.BottomLeft
+          anchor = TLBoundsCorner.BottomLeft
         } else {
-          anchor = TLNuBoundsCorner.BottomRight
+          anchor = TLBoundsCorner.BottomRight
         }
         break
       }
-      case TLNuBoundsCorner.TopRight: {
+      case TLBoundsCorner.TopRight: {
         if (isFlippedX && isFlippedY) {
-          anchor = TLNuBoundsCorner.BottomLeft
+          anchor = TLBoundsCorner.BottomLeft
         } else if (isFlippedX) {
-          anchor = TLNuBoundsCorner.TopLeft
+          anchor = TLBoundsCorner.TopLeft
         } else if (isFlippedY) {
-          anchor = TLNuBoundsCorner.BottomRight
+          anchor = TLBoundsCorner.BottomRight
         } else {
-          anchor = TLNuBoundsCorner.BottomLeft
+          anchor = TLBoundsCorner.BottomLeft
         }
         break
       }
-      case TLNuBoundsCorner.BottomRight: {
+      case TLBoundsCorner.BottomRight: {
         if (isFlippedX && isFlippedY) {
-          anchor = TLNuBoundsCorner.TopLeft
+          anchor = TLBoundsCorner.TopLeft
         } else if (isFlippedX) {
-          anchor = TLNuBoundsCorner.BottomLeft
+          anchor = TLBoundsCorner.BottomLeft
         } else if (isFlippedY) {
-          anchor = TLNuBoundsCorner.TopRight
+          anchor = TLBoundsCorner.TopRight
         } else {
-          anchor = TLNuBoundsCorner.TopLeft
+          anchor = TLBoundsCorner.TopLeft
         }
         break
       }
-      case TLNuBoundsCorner.BottomLeft: {
+      case TLBoundsCorner.BottomLeft: {
         if (isFlippedX && isFlippedY) {
-          anchor = TLNuBoundsCorner.TopRight
+          anchor = TLBoundsCorner.TopRight
         } else if (isFlippedX) {
-          anchor = TLNuBoundsCorner.BottomRight
+          anchor = TLBoundsCorner.BottomRight
         } else if (isFlippedY) {
-          anchor = TLNuBoundsCorner.TopLeft
+          anchor = TLBoundsCorner.TopLeft
         } else {
-          anchor = TLNuBoundsCorner.TopRight
+          anchor = TLBoundsCorner.TopRight
         }
         break
       }
@@ -628,12 +628,12 @@ left past the initial left edge) then swap points on that axis.
    * @param isFlippedY
    */
   static getRelativeTransformedBoundingBox(
-    bounds: TLNuBounds,
-    initialBounds: TLNuBounds,
-    initialShapeBounds: TLNuBounds,
+    bounds: TLBounds,
+    initialBounds: TLBounds,
+    initialShapeBounds: TLBounds,
     isFlippedX: boolean,
     isFlippedY: boolean
-  ): TLNuBounds {
+  ): TLBounds {
     const nx =
       (isFlippedX
         ? initialBounds.maxX - initialShapeBounds.maxX
@@ -683,7 +683,7 @@ left past the initial left edge) then swap points on that axis.
    *
    * @param bounds
    */
-  static getBoundsCenter(bounds: TLNuBounds): number[] {
+  static getBoundsCenter(bounds: TLBounds): number[] {
     return [bounds.minX + bounds.width / 2, bounds.minY + bounds.height / 2]
   }
 
@@ -692,7 +692,7 @@ left past the initial left edge) then swap points on that axis.
    *
    * @param bounds
    */
-  static getBoundsWithCenter(bounds: TLNuBounds): TLNuBoundsWithCenter {
+  static getBoundsWithCenter(bounds: TLBounds): TLBoundsWithCenter {
     const center = BoundsUtils.getBoundsCenter(bounds)
     return {
       ...bounds,
@@ -717,9 +717,9 @@ left past the initial left edge) then swap points on that axis.
     return min
   }
 
-  static getTLNuSnapPoints(
-    bounds: TLNuBoundsWithCenter,
-    others: TLNuBoundsWithCenter[],
+  static getTLSnapPoints(
+    bounds: TLBoundsWithCenter,
+    others: TLBoundsWithCenter[],
     snapDistance: number
   ) {
     const A = { ...bounds }
@@ -731,17 +731,17 @@ left past the initial left edge) then swap points on that axis.
     // 1.
     // Find the snap points for the x and y axes
 
-    const snaps: Record<TLNuSnapPoints, TLNuSnap> = {
-      [TLNuSnapPoints.minX]: { id: TLNuSnapPoints.minX, isSnapped: false },
-      [TLNuSnapPoints.midX]: { id: TLNuSnapPoints.midX, isSnapped: false },
-      [TLNuSnapPoints.maxX]: { id: TLNuSnapPoints.maxX, isSnapped: false },
-      [TLNuSnapPoints.minY]: { id: TLNuSnapPoints.minY, isSnapped: false },
-      [TLNuSnapPoints.midY]: { id: TLNuSnapPoints.midY, isSnapped: false },
-      [TLNuSnapPoints.maxY]: { id: TLNuSnapPoints.maxY, isSnapped: false },
+    const snaps: Record<TLSnapPoints, TLSnap> = {
+      [TLSnapPoints.minX]: { id: TLSnapPoints.minX, isSnapped: false },
+      [TLSnapPoints.midX]: { id: TLSnapPoints.midX, isSnapped: false },
+      [TLSnapPoints.maxX]: { id: TLSnapPoints.maxX, isSnapped: false },
+      [TLSnapPoints.minY]: { id: TLSnapPoints.minY, isSnapped: false },
+      [TLSnapPoints.midY]: { id: TLSnapPoints.midY, isSnapped: false },
+      [TLSnapPoints.maxY]: { id: TLSnapPoints.maxY, isSnapped: false },
     }
 
-    const xs = [TLNuSnapPoints.midX, TLNuSnapPoints.minX, TLNuSnapPoints.maxX]
-    const ys = [TLNuSnapPoints.midY, TLNuSnapPoints.minY, TLNuSnapPoints.maxY]
+    const xs = [TLSnapPoints.midX, TLSnapPoints.minX, TLSnapPoints.maxX]
+    const ys = [TLSnapPoints.midY, TLSnapPoints.minY, TLSnapPoints.maxY]
 
     const snapResults = others.map((B) => {
       const rx = xs.flatMap((f, i) =>
@@ -854,7 +854,7 @@ left past the initial left edge) then swap points on that axis.
       // If A is snapped at its center, show include only the midY;
       // otherwise, include both its minY and maxY.
       snapLines.push(
-        id === TLNuSnapPoints.minX
+        id === TLSnapPoints.minX
           ? [
               [x, A.midY],
               [x, B.minY],
@@ -878,7 +878,7 @@ left past the initial left edge) then swap points on that axis.
       const y = A[id]
 
       snapLines.push(
-        id === TLNuSnapPoints.midY
+        id === TLSnapPoints.midY
           ? [
               [A.midX, y],
               [B.minX, y],
@@ -896,7 +896,7 @@ left past the initial left edge) then swap points on that axis.
     return { offset, snapLines }
   }
 
-  static getContextBarTranslation(barSize: number[], offset: TLNuOffset) {
+  static getContextBarTranslation(barSize: number[], offset: TLOffset) {
     let x = 0
     let y = 0
 
